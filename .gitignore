@@ -1,0 +1,114 @@
+# .gitignore for .NET/C# projects
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# MonoDevelop/Xamarin Studio
+*.pidb
+*.userprefs
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.tlog
+*.lastbuildstate
+*.buildlog
+*.metagen
+*.wrn
+*.err
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Dd]efinition*.local
+
+# NCrunch
+*.ncrunch*
+*._ncrunch_*
+
+# NUnit
+*.nunit
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# TeamCity
+_TeamCity*
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+StyleCop/StyleCopReport.xml
+
+# XML Documentation Files
+**/bin/**/*.xml
+**/obj/**/*.xml
+
+# Coverage results
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+
+# BenchmarkDotNet
+BenchmarkDotNet.Artifacts/
