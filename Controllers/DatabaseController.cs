@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using WebApplication1.Services;
 
-namespace ConsoleApp1.Controllers
+namespace WebApplication1.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -176,6 +177,9 @@ namespace ConsoleApp1.Controllers
         {
             try
             {
+                Student student1 = new Student(id:3,name:"sad",age:12);
+                student1.Eat();
+                Console.WriteLine(student1.id + student1.name);
                 var students = new List<Dictionary<string, object>>();
 
                 using (var connection = new SqlConnection(_connectionString))
