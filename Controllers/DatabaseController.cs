@@ -52,7 +52,7 @@ namespace WebApplication1.Controllers
         /// <summary>
         /// GET: api/database/tables
         /// 获取表列表
-        /// </summary>
+        /// </summary> 
         [HttpGet("tables")]
         public IActionResult GetTables()
         {
@@ -175,10 +175,12 @@ namespace WebApplication1.Controllers
         [HttpGet("student")]
         public IActionResult GetStudents()
         {
+
             try
             {
                 Student student1 = new Student(id:3,name:"sad",age:12);
                 student1.Eat();
+                student1.TestConnection();
                 Console.WriteLine(student1.id + student1.name);
                 var students = new List<Dictionary<string, object>>();
 

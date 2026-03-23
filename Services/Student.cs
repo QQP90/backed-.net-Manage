@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.Data.SqlClient;
+using System.Collections;
 
 namespace WebApplication1.Services
 {
@@ -45,6 +46,32 @@ namespace WebApplication1.Services
         public string GetMessage(string name)
         {
             return $"Hello {name}!";
+        }
+        /*
+         测试数据库连接池
+         */
+        public void TestConnection()
+        {
+            string connStr1 = "Data Source=localhost;Initial Catalog=luda;User ID=luda;Password=395353;Max Pool Size=5;TrustServerCertificate=True;";
+            string connStr2 = "Data Source=localhost;Initial Catalog=luda; User ID=luda;Password=395353;Max Pool Size=5;TrustServerCertificate=True;";
+            string connStr3 = "Data Source=localhost;Initial Catalog=luda;User ID=luda;Password=395353;Max Pool Size=5;TrustServerCertificate=True;";
+            for (int i = 0; i < 5; i++)
+            {
+                SqlConnection conn2 = new SqlConnection(connStr2);
+                conn2.Open();
+                Console.WriteLine($"conn2第{i + 1}个连接已打开");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+
+                SqlConnection conn1 = new SqlConnection(connStr1);
+                conn1.Open();
+                Console.WriteLine($"conn1第{i+1}个连接已打开");
+                SqlConnection conn3 = new SqlConnection(connStr3);
+                conn3.Open();
+                Console.WriteLine($"conn3第{i + 1}个连接已打开");
+            }
+
         }
     }
 }
