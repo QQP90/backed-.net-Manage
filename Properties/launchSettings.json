@@ -2,8 +2,8 @@
   "profiles": {
     "WebApplication1": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:55235;http://localhost:55236",
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:55235;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

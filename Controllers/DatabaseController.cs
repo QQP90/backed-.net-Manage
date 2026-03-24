@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
-using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
@@ -15,7 +14,8 @@ namespace WebApplication1.Controllers
         public DatabaseController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            _connectionString = _configuration.GetConnectionString("DefaultConnection")
+                ?? "Data Source=localhost;Initial Catalog=luda;User ID=luda;Password=395353;TrustServerCertificate=True;";
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace WebApplication1.Controllers
                     {
                         while (reader.Read())
                         {
-                            tables.Add(reader["TABLE_NAME"].ToString());
+                            tables.Add(reader["TABLE_NAME"].ToString()!);
                         }
                     }
                 }
@@ -156,59 +156,6 @@ namespace WebApplication1.Controllers
                     columns = columns,
                     count = rows.Count,
                     data = rows
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = ex.Message
-                });
-            }
-        }
-
-        /// <summary>
-        /// GET: api/database/student
-        /// 获取 Student 表数据（示例专用接口）
-        /// </summary>
-        [HttpGet("student")]
-        public IActionResult GetStudents()
-        {
-
-            try
-            {
-                Student student1 = new Student(id:3,name:"sad",age:12);
-                student1.Eat();
-                student1.TestConnection();
-                Console.WriteLine(student1.id + student1.name);
-                var students = new List<Dictionary<string, object>>();
-
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    string query = "SELECT TOP 20 * FROM Student ORDER BY (SELECT NULL)";
-
-                    using (var cmd = new SqlCommand(query, connection))
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var student = new Dictionary<string, object>();
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                student[reader.GetName(i)] = reader.GetValue(i);
-                            }
-                            students.Add(student);
-                        }
-                    }
-                }
-
-                return Ok(new
-                {
-                    success = true,
-                    count = students.Count,
-                    data = students
                 });
             }
             catch (Exception ex)

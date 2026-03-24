@@ -1,11 +1,22 @@
-// Web API 启动程序
+using Microsoft.OpenApi;
+using WebApplication1.Repositories;
+using WebApplication1.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // 添加控制器
 builder.Services.AddControllers();
 
 // 添加 Swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Student API",
+        Version = "v1",
+        Description = "学生管理 API - 提供学生的增删改查功能"
+    });
+});
 
 // 添加 CORS
 builder.Services.AddCors(options =>
@@ -18,6 +29,16 @@ builder.Services.AddCors(options =>
     });
 });
 
+// 配置数据库连接字符串
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? "Data Source=localhost;Initial Catalog=luda;User ID=luda;Password=395353;TrustServerCertificate=True;";
+
+// 注册 Repository
+builder.Services.AddSingleton<IStudentRepository>(provider => 
+    new StudentRepository(connectionString));
+
+// 注册 Service
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 var app = builder.Build();
 
@@ -27,19 +48,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Database API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Student API v1");
     });
 }
 
 app.UseCors("AllowAll");
 app.MapControllers();
 
-Console.WriteLine("========================================");
-Console.WriteLine("  Database API 已启动!");
-Console.WriteLine("========================================");
-Console.WriteLine("  Swagger UI: http://localhost:5000/swagger");
-Console.WriteLine("  API 地址：http://localhost:5000/api/database/test");
-Console.WriteLine("========================================");
-Console.WriteLine("按 Ctrl+C 停止服务...");
-
-app.Run("http://localhost:5000");
+app.Run();
