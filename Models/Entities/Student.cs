@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace WebApplication1.Models.Entities
 {
     /// <summary>
     /// 学生实体类 - 对应数据库 Student 表

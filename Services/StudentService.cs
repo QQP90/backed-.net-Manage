@@ -1,5 +1,5 @@
-using WebApplication1.Models;
 using WebApplication1.Models.DTOs;
+using WebApplication1.Models.Entities;
 using WebApplication1.Repositories;
 
 namespace WebApplication1.Services
