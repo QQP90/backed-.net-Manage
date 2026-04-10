@@ -1,21 +1,21 @@
-﻿namespace WebApplication1.Models.Queries
+namespace WebApplication1.Models.Queries
 {
     public class UserQueryModel
     {
         /// <summary>
         /// 搜索关键词（用户名、邮箱、电话号码）
         /// </summary>
-        public string SearchKeyword { get; set; }
+        public string? SearchKeyword { get; set; }
 
         /// <summary>
         /// 用户名
         /// </summary>
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         /// <summary>
         /// 邮箱
         /// </summary>
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         /// <summary>
         /// 是否激活

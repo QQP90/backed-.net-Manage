@@ -112,3 +112,8 @@ coverage*.info
 
 # BenchmarkDotNet
 BenchmarkDotNet.Artifacts/
+
+# Local secrets / machine-specific settings (do not commit)
+appsettings.Local.json
+appsettings.*.Local.json
+secrets.json

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.Entities;
 
 namespace WebApplication1.Infrastructure
@@ -16,7 +16,7 @@ namespace WebApplication1.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         // 添加其他实体...
-
+        public DbSet<Order> Orders { get; set; }
         /// <summary>
         /// 配置数据库模型
         /// </summary>
@@ -44,7 +44,16 @@ namespace WebApplication1.Infrastructure
                 entity.HasIndex(e => e.Username).IsUnique();
                 entity.HasIndex(e => e.Email).IsUnique();
             });
-
+            // 配置 Order 表
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Orders");
+                entity.HasKey(e => e.OrderId);
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                // 数据库层默认值：当 INSERT 没有显式传 orderDate 时，由数据库生成当前时间
+                // 如果不配：当应用端忘记赋值时，SQL Server 可能落入默认值（例如 1900-01-01 或 0001-01-01）
+                entity.Property(e => e.orderDate).HasDefaultValueSql("SYSUTCDATETIME()");
+            });
         }
     }
 }

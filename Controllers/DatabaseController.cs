@@ -8,14 +8,12 @@ namespace WebApplication1.Controllers
     [Route("api/[controller]")]
     public class DatabaseController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly string _connectionString;
 
         public DatabaseController(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("DefaultConnection")
-                ?? "Data Source=localhost;Initial Catalog=luda;User ID=luda;Password=395353;TrustServerCertificate=True;";
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Missing connection string: ConnectionStrings:DefaultConnection");
         }
 
         /// <summary>

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using WebApplication1.Models.DTOs.User;
 using WebApplication1.Models.Queries;
-using WebApplication1.Models.DTOs;
-using WebApplication1.Models.Queries;
-using WebApplication1.Repositories;
+
 namespace WebApplication1.Services
 {
     /// <summary>
@@ -26,7 +24,7 @@ namespace WebApplication1.Services
         /// <summary>
         /// 创建用户
         /// </summary>
-        //Task<SingleResponse<UserDto>> CreateUserAsync(CreateUserDto createUserDto);
+        Task<SingleResponse<UserDto>> CreateUserAsync(CreateUserDto createUserDto);
 
         ///// <summary>
         ///// 更新用户

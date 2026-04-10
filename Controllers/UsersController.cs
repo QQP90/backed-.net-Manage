@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebApplication1.Models.DTOs;
 using WebApplication1.Models.DTOs.User;
-using WebApplication1.Models.Queries;
 using WebApplication1.Models.Queries;
 using WebApplication1.Services;
 
@@ -49,7 +47,37 @@ namespace WebApplication1.Controllers
         /// <summary>
         /// 创建用户
         /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        {
+            // 第 1 步：Controller 校验请求体（[ApiController] 会自动做一部分校验，这里显式判断更清晰）
+            // 如果不校验：无效数据会进入 Service/Repository，最终变成 500 或脏数据
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            // 第 2 步：调用业务层创建用户
+            // 业务规则（例如用户名/邮箱是否重复、密码哈希）必须在 Service 做，Controller 不写业务逻辑
+            var response = await _userService.CreateUserAsync(createUserDto);
+
+            // 第 3 步：根据业务结果返回合适的 HTTP 状态码
+            // 如果不区分：前端只能得到 200/500，无法知道是“参数错”还是“重复”还是“系统故障”
+            if (!response.Success)
+            {
+                if (response.Message != null &&
+                    (response.Message.Contains("已存在") || response.Message.Contains("重复")))
+                {
+                    return Conflict(response);
+                }
+
+                return BadRequest(response);
+            }
+
+            // 第 4 步：CreatedAtAction 返回 201，并带上 Location（能直接跳转到新用户详情）
+            // 如果只 return Ok：语义上不是“创建”，并且前端很难拿到资源定位
+            return CreatedAtAction(nameof(GetUserById), new { userId = response.Data.UserId }, response);
+        }
 
         /// <summary>
         /// 更新用户 ✅ 新增接口
