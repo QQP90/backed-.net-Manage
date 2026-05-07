@@ -36,7 +36,7 @@ namespace WebApplication1.Services
         public async Task<OrderDto> CreateAsync(CreateOrderDto dto)
         {
             var now = DateTime.UtcNow;
-            var normalizedOrderDate = dto.orderDate;
+            var normalizedOrderDate = dto.OrderDate;
             if (!normalizedOrderDate.HasValue || normalizedOrderDate.Value.Year < 2000)
             {
                 normalizedOrderDate = now;
@@ -45,7 +45,7 @@ namespace WebApplication1.Services
             var entity = new Order
             {
                 Name = dto.Name,
-                totalPrice = dto.totalPrice,
+                totalPrice = dto.TotalPrice,
                 orderDate = normalizedOrderDate.Value,
                 createdAt = now,
                 updatedAt = now

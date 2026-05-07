@@ -53,6 +53,7 @@ namespace WebApplication1.Infrastructure
                 // 数据库层默认值：当 INSERT 没有显式传 orderDate 时，由数据库生成当前时间
                 // 如果不配：当应用端忘记赋值时，SQL Server 可能落入默认值（例如 1900-01-01 或 0001-01-01）
                 entity.Property(e => e.orderDate).HasDefaultValueSql("SYSUTCDATETIME()");
+                entity.HasIndex(e => e.orderDate);
             });
         }
     }

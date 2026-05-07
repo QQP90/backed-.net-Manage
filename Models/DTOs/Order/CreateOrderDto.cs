@@ -11,10 +11,10 @@ namespace WebApplication1.Models.DTOs.Order
 
         // 前端传入金额（必填）
         [Range(typeof(decimal), "0", "79228162514264337593543950335")]
-        public decimal totalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
         // 前端可选传入下单时间
         // 不传：Service 会用当前时间；数据库也有默认值兜底
-        public DateTime? orderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
     }
 }
